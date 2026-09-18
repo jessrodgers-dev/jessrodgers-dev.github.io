@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Jess Rodgers — ingeniera de sistemas. Automatización e IA. Sitio en construcción.">
+<meta name="theme-color" content="#0f1213">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f1213'/%3E%3Ccircle cx='16' cy='16' r='3.4' fill='%235fe3cd'/%3E%3Ccircle cx='7' cy='8' r='1' fill='%23c4baff'/%3E%3Ccircle cx='25' cy='23' r='1.2' fill='%23eef0ff'/%3E%3Ccircle cx='24' cy='7' r='.8' fill='%23eef0ff'/%3E%3Ccircle cx='8' cy='24' r='.8' fill='%235fe3cd'/%3E%3C/svg%3E">
+<link rel="canonical" href="https://jessrodgers.dev/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jess Rodgers">
+<meta property="og:description" content="Ingeniera de sistemas. Automatización e IA. Próximamente.">
+<meta property="og:url" content="https://jessrodgers.dev/">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&display=swap">
+
+<title>Jess Rodgers</title>
+<style>
+  :root{
+    --void:        oklch(12% 0.028 288);
+    --star:        oklch(97% 0.008 285);
+    --dust:        oklch(75% 0.028 288);
+    --dust-dim:    oklch(58% 0.030 288);
+    --violet:      oklch(60% 0.205 298);
+    --indigo:      oklch(54% 0.190 266);
+    --turquoise:   oklch(80% 0.135 187);
+    --ease-quart:  cubic-bezier(.25,1,.5,1);
+    --ease-expo:   cubic-bezier(.16,1,.3,1);
+  }
+
+  html{height:100%;}
+  html, body{background:var(--void);}
+  body{
+    min-height:100%;
+    margin:0;
+    color:var(--dust);
+    font-family:"Outfit", ui-sans-serif, system-ui, sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ---------- cosmos ---------- */
+  #field{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:0;}
+
+  .nebula{position:fixed; inset:-30%; z-index:0; pointer-events:none; filter:blur(92px); opacity:.88;}
+  .nebula span{position:absolute; display:block; border-radius:50%; will-change:transform;}
+  .n1{
+    width:60vw; height:60vw; left:-10vw; top:-4vh;
+    background:radial-gradient(circle at 50% 50%,
+      color-mix(in oklch, var(--violet) 64%, transparent) 0%,
+      color-mix(in oklch, var(--violet) 18%, transparent) 42%, transparent 70%);
+    animation:drift-a 78s ease-in-out infinite alternate;
+  }
+  .n2{
+    width:66vw; height:66vw; right:-16vw; top:-10vh;
+    background:radial-gradient(circle at 50% 50%,
+      color-mix(in oklch, var(--indigo) 60%, transparent) 0%,
+      color-mix(in oklch, var(--indigo) 16%, transparent) 45%, transparent 72%);
+    animation:drift-b 94s ease-in-out infinite alternate;
+  }
+  .n3{
+    width:50vw; height:50vw; left:20vw; top:42vh;
+    background:radial-gradient(circle at 50% 50%,
+      color-mix(in oklch, var(--turquoise) 42%, transparent) 0%,
+      color-mix(in oklch, var(--turquoise) 10%, transparent) 40%, transparent 68%);
+    animation:drift-c 66s ease-in-out infinite alternate;
+  }
+  @keyframes drift-a{from{transform:translate3d(0,0,0) scale(1)}   to{transform:translate3d(6vw,-5vh,0) scale(1.14)}}
+  @keyframes drift-b{from{transform:translate3d(0,0,0) scale(1.06)}to{transform:translate3d(-7vw,6vh,0) scale(.94)}}
+  @keyframes drift-c{from{transform:translate3d(0,0,0) scale(.92)} to{transform:translate3d(5vw,-8vh,0) scale(1.2)}}
+
+  .grain{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- plate ---------- */
+  main{
+    position:relative; z-index:2;
+    min-height:100vh;
+    min-height:100svh;
+    box-sizing:border-box;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    max-width:1140px; margin:0 auto;
+    padding-inline:clamp(24px, 6vw, 84px);
+    padding-block:clamp(56px,10vh,96px) clamp(48px,9vh,88px);
+  }
+
+  .tag{
+    font-size:clamp(11px,1.5vw,13px); font-weight:500;
+    letter-spacing:.34em; text-transform:uppercase;
+    color:var(--turquoise);
+    display:inline-flex; align-items:center; gap:14px;
+  }
+  .tag::before{
+    content:""; width:clamp(26px,5vw,54px); height:1px;
+    background:var(--turquoise); opacity:.55;
+    transform-origin:left; 
+  }
+
+  h1{
+    font-weight:800;
+    font-size:clamp(56px, 15vw, 186px);
+    line-height:.84;
+    letter-spacing:-.05em;
+    color:var(--star);
+    margin:clamp(18px,3vh,32px) 0 0;
+  }
+
+  .hair{
+    height:1px; width:min(100%, 620px);
+    margin-top:clamp(34px,6vh,58px);
+    background:linear-gradient(90deg,
+      color-mix(in oklch, var(--turquoise) 70%, transparent),
+      color-mix(in oklch, var(--violet) 55%, transparent) 52%,
+      transparent);
+    transform:scaleX(0); transform-origin:left;
+    animation:draw 1.4s var(--ease-expo) .55s forwards;
+  }
+  @keyframes draw{to{transform:scaleX(1);}}
+
+  .foot{
+    margin-top:clamp(22px,4vh,34px);
+    display:flex; flex-wrap:wrap; align-items:baseline;
+    gap:10px clamp(16px,4vw,34px);
+    font-size:clamp(13px,1.7vw,15px);
+  }
+  .foot .dom{color:var(--dust-dim); letter-spacing:.14em; text-transform:uppercase; font-weight:500;}
+  a.mail{
+    color:var(--dust); text-decoration:none;
+    position:relative; padding-bottom:4px;
+    transition:color .35s var(--ease-quart);
+  }
+  a.mail::after{
+    content:""; position:absolute; left:0; bottom:0; height:1px; width:100%;
+    background:var(--turquoise);
+    transform:scaleX(0); transform-origin:left;
+    transition:transform .5s var(--ease-expo);
+  }
+  @media (hover:hover){
+    a.mail:hover{color:var(--star);}
+    a.mail:hover::after{transform:scaleX(1);}
+  }
+  a.mail:focus-visible{outline:2px solid var(--turquoise); outline-offset:6px;}
+
+  /* ---------- entrance ---------- */
+  .rise{opacity:0; transform:translate3d(0,26px,0);
+    animation:rise .9s var(--ease-quart) forwards;
+    animation-delay:calc(var(--i,0) * 130ms);}
+  @keyframes rise{to{opacity:1; transform:none;}}
+
+  @media (prefers-reduced-motion:reduce){
+    .rise{opacity:1; transform:none; animation:none;}
+    .hair{transform:none; animation:none;}
+    .nebula span{animation:none !important;}
+    *{transition-duration:.01ms !important;}
+  }
+</style>
+</head>
+<body>
+<canvas id="field" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"><span class="n1"></span><span class="n2"></span><span class="n3"></span></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+  <span class="tag rise" style="--i:0">Coming soon</span>
+  <h1 class="rise" style="--i:1">Jess<br>Rodgers</h1>
+  <div class="hair" aria-hidden="true"></div>
+  <div class="foot rise" style="--i:3">
+    <span class="dom">jessrodgers.dev</span>
+    <a class="mail" href="mailto:clientes@jessrodgers.dev">clientes@jessrodgers.dev</a>
+  </div>
+</main>
+
+<script>
+(function(){
+  var c = document.getElementById('field');
+  if(!c) return;
+  var ctx = c.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var stars = [], w = 0, h = 0, dpr = 1, raf = null, t0 = 0;
+
+  var TINTS = [
+    'rgba(238,240,255,', 'rgba(238,240,255,', 'rgba(238,240,255,',
+    'rgba(196,186,255,', 'rgba(168,240,232,'
+  ];
+
+  function build(){
+    var rect = c.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = Math.max(1, Math.floor(rect.width));
+    h = Math.max(1, Math.floor(rect.height));
+    c.width = Math.floor(w * dpr);
+    c.height = Math.floor(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    var n = Math.min(300, Math.round((w * h) / 6400));
+    stars = [];
+    for (var i = 0; i < n; i++){
+      var d = Math.random();
+      stars.push({
+        x: Math.random() * w, y: Math.random() * h,
+        r: 0.35 + d * 1.2,
+        a: 0.22 + d * 0.58,
+        vy: 0.8 + d * 3.0,
+        vx: -(0.22 + d * 0.85),
+        ph: Math.random() * 6.2832,
+        sp: 0.5 + Math.random() * 1.1,
+        tint: TINTS[(Math.random() * TINTS.length) | 0]
+      });
+    }
+  }
+
+  function paint(now){
+    var dt = t0 ? Math.min((now - t0) / 1000, 0.05) : 0;
+    t0 = now;
+    ctx.clearRect(0, 0, w, h);
+    var ts = now / 1000;
+    for (var i = 0; i < stars.length; i++){
+      var s = stars[i];
+      if (!reduce){
+        s.y += s.vy * dt; s.x += s.vx * dt;
+        if (s.y > h + 2){ s.y = -2; s.x = Math.random() * w; }
+        if (s.x < -2){ s.x = w + 2; }
+      }
+      var tw = reduce ? 1 : (0.6 + 0.4 * Math.sin(ts * s.sp + s.ph));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, 6.2832);
+      ctx.fillStyle = s.tint + (s.a * tw).toFixed(3) + ')';
+      ctx.fill();
+    }
+    raf = requestAnimationFrame(paint);
+  }
+  function start(){ if (raf === null){ t0 = 0; raf = requestAnimationFrame(paint); } }
+  function stop(){ if (raf !== null){ cancelAnimationFrame(raf); raf = null; } }
+
+  build();
+  if (reduce){ paint(performance.now()); stop(); } else start();
+
+  var rt;
+  window.addEventListener('resize', function(){
+    clearTimeout(rt);
+    rt = setTimeout(function(){ build(); if (reduce){ stop(); paint(performance.now()); stop(); } }, 180);
+  });
+  document.addEventListener('visibilitychange', function(){
+    if (reduce) return;
+    if (document.hidden) stop(); else start();
+  });
+})();
+</script>
+</body>
+</html>
